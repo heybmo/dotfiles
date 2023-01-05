@@ -1,0 +1,8 @@
+- defaults:
+    link:
+      relink: true
+
+- link:
+    ~/.config/kitty: kitty
+    ~/.config/nvim: nvim
+    ~/.zshrc: .zshrc
