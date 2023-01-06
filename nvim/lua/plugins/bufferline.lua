@@ -1,6 +1,6 @@
 require('bufferline').setup({
   options = {
-    always_show_bufferline = true,
+    always_show_bufferline = false,
     color_icons = true,
     diagnostics = 'nvim_lsp',
     hover = {

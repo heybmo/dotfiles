@@ -51,6 +51,8 @@ require('packer').startup(function(use)
     'goolord/alpha-nvim',
     requires = { 'kyazdani42/nvim-web-devicons' }
   }
+  -- Set project root
+  use 'airblade/vim-rooter'
 
   -- Autocompletion
   use 'rafamadriz/friendly-snippets'
