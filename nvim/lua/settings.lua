@@ -10,10 +10,13 @@ vim.o.history = 1000
 vim.o.dictionary = '/usr/share/dict/words'
 vim.o.startofline = true
 vim.o.clipboard = 'unnamedplus'
+vim.o.autoread = true
+-- Confirm to save changes before exiting modified buffer
+vim.o.confirm = true
 
 -- Mapping waiting time
 vim.o.redrawtime = 1500
-vim.o.timeoutlen = 400
+vim.o.timeoutlen = 300
 -- IMPORTANT: be careful about changing this value--
 -- used to determine when to show diagnostics window
 -- for LSP.
@@ -27,12 +30,9 @@ vim.o.scrolloff       = 3 -- always show 3 rows from edge of the screen
 vim.o.synmaxcol       = 300 -- stop syntax highlight after x lines for performance
 vim.o.laststatus      = 2 -- always show status line
 vim.o.cursorline      = true
-vim.o.lazyredraw      = true
+-- vim.o.lazyredraw      = true
 vim.o.background      = 'dark'
 vim.opt.termguicolors = true
--- OTHER COLOR SCHEMES AVAILABLE:
--- - melange
-vim.cmd('colorscheme tokyonight')
 
 vim.o.list = true -- do not display whitespace characters
 -- vim.opt.listchars = {
@@ -57,6 +57,7 @@ vim.o.modelines = 1
 vim.o.showcmd = true -- display command in bottom bar
 
 -- Search
+vim.o.grepprg = 'rg --vimgrep'
 vim.o.incsearch = true -- starts searching as soon as typing, without enter needed
 vim.o.ignorecase = true -- ignore letter case when searching
 vim.o.smartcase = true -- case insentive unless capitals used in search
@@ -76,6 +77,8 @@ vim.o.expandtab = true -- expand tab to spaces
 vim.o.backup = true -- use backup files
 vim.o.writebackup = false
 vim.o.swapfile = false -- do not use swap file
+vim.o.undofile = true
+vim.o.undolevels = 10000
 vim.o.undodir = HOME .. '/.vim/tmp/undo//' -- undo files
 vim.o.backupdir = HOME .. '/.vim/tmp/backup//' -- backups
 vim.o.directory = '/.vim/tmp/swap//' -- swap files
