@@ -1,4 +1,3 @@
---
 local M = {
   'nvim-neo-tree/neo-tree.nvim',
   cmd = 'Neotree',
@@ -13,7 +12,7 @@ local M = {
       '<leader>ft',
       function()
         require('neo-tree.command').execute({
-          toggle = true, dir = require('util').get_root
+          toggle = true, dir = require('util').get_root()
         })
       end,
       desc = 'Explorer NeoTree (root dir)',
@@ -21,6 +20,7 @@ local M = {
     { '<leader>fT', '<cmd>Neotree toggle<CR>', desc = 'Explorer NeoTree (cwd)' },
     { '<leader>fe', '<leader>fe', desc = 'Explorer NeoTree (root dir)', remap = true },
     { '<leader>fE', '<leader>fE', desc = 'Explorer NeoTree (cwd)', remap = true },
+    { '<leader>fc', '<cmd>Neotree reveal_force_cwd<CR>', desc = 'Reveal current buffer in file tree'},
   },
   opts = {
     filesystem = {

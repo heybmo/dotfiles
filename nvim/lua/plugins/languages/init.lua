@@ -10,6 +10,7 @@ local M = {
       'mason.nvim',
       'williamboman/mason-lspconfig.nvim',
       'hrsh7th/cmp-nvim-lsp',
+      'psf/black',
   }
 }
 
@@ -25,6 +26,7 @@ function M.config()
   lspconfig.cssls.setup(require('plugins.languages.css').lsp)
   lspconfig.tsserver.setup(require('plugins.languages.typescript').lsp)
   lspconfig.jsonls.setup(require('plugins.languages.json').lsp)
+  lspconfig.efm.setup(require('plugins.languages.efm'))
 end
 
 return M

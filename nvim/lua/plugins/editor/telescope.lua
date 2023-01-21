@@ -11,6 +11,7 @@ local M = {
     'junegunn/fzf',
     'junegunn/fzf.vim',
     'nvim-telescope/telescope-fzf-native.nvim',
+    'BurntSushi/ripgrep',
   },
 }
 
@@ -39,10 +40,13 @@ M.keys = {
   { '<leader>/', M.telescope('live_grep'), desc = 'Find in Files (Grep)' },
   { '<leader>:', '<cmd>Telescope command_history<cr>', desc = 'Command History' },
   { '<leader><space>', M.telescope('files'), desc = 'Find Files (root dir)' },
+  { '<leader>bb', '<cmd>Telescope buffers<CR>', desc = 'List open buffers' },
+  { '<leader>f.', 'Telescope find_files', desc = 'Find files from root' },
   { '<leader>fF', M.telescope('files', { cwd = false }), desc = 'Find Files (cwd)' },
   { '<leader>fb', '<cmd>Telescope buffers<cr>', desc = 'Buffers' },
   { '<leader>ff', M.telescope('files'), desc = 'Find Files (root dir)' },
   { '<leader>fr', '<cmd>Telescope oldfiles<cr>', desc = 'Recent' },
+  { '<leader>fh', '<cmd>lua require("telescope.builtin").find_files({ cwd="~" })<CR>', desc = 'Find From Home Dir'},
   { '<leader>gc', '<cmd>Telescope git_commits<CR>', desc = 'commits' },
   { '<leader>gs', '<cmd>Telescope git_status<CR>', desc = 'status' },
   { '<leader>sC', '<cmd>Telescope commands<cr>', desc = 'Commands' },
@@ -103,10 +107,7 @@ function M.config()
   telescope.setup({
     prompt_prefix = '🔍 ',
     file_ignore_patterns = {
-      '.git/',
-      'target/',
       -- 'docs/',
-      'vendor/*',
       '%.lock',
       '__pycache__/*',
       '%.sqlite3',
@@ -120,16 +121,12 @@ function M.config()
       '%.ttf',
       '%.webp',
       '.dart_tool/',
-      '.github/',
-      '.gradle/',
-      '.idea/',
       -- '.settings/',
       -- '.vscode/',
       '__pycache__/',
       -- 'build/',
       -- 'env/',
       'gradle/',
-      'node_modules/',
       '%.pdb',
       '%.dll',
       '%.class',
@@ -232,7 +229,7 @@ function M.config()
         },
       },
       find_files = {
-        find_command = { 'fd', '--glob', '--strip-cwd-prefix', '--type=f', '--hidden', '--no-ignore' },
+        find_command = { 'fd', '--type=f', '--glob', '--hidden', '--strip-cwd-prefix' },
       },
       lsp_code_actions = {
         theme = 'cursor',

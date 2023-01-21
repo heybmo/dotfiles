@@ -7,17 +7,16 @@ M.lsp = {
   flags = lsp.flags,
   on_attach = lsp.on_attach,
   cmd = { 'gopls', 'serve' },
-   settings = {
-     gopls = {
-       analyses = {
-         unused_params = true,
-         shadow = true,
-       },
-       staticcheck = true,
-     },
-     staticcheck = true,
-   },
+  settings = {
+    gopls = {
+      analyses = {
+        unused_params = true,
+        shadow = true,
+      },
+      staticcheck = true,
+    },
+    staticcheck = true,
+  },
 }
 
 return M
-

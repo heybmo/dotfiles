@@ -3,7 +3,7 @@ local M = {
   dependencies = {
     'nvim-tree/nvim-web-devicons'
   },
-  event = 'VeryLazy',
+  event = 'BufEnter',
   init = function()
     vim.keymap.set('n', '<s-h>', '<cmd>BufferLineCyclePrev<cr>', { desc = 'Prev Buffer' })
     vim.keymap.set('n', '<s-l>', '<cmd>BufferLineCycleNext<cr>', { desc = 'Next Buffer' })

@@ -1,6 +1,7 @@
 local M = {
   require('plugins.editor.bufremove'),
   require('plugins.editor.gitsigns'),
+  require('plugins.editor.lsp_signature'),
   require('plugins.editor.neotree'),
   require('plugins.editor.nvim-spectre'),
   require('plugins.editor.telescope'),
