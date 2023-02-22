@@ -1,11 +1,11 @@
 return {
-  require('plugins.colorschemes'),
+	require("plugins.colorschemes"),
 
-  require('plugins.editor'),
+	require("plugins.editor"),
 
-  require('plugins.ui'),
+	require("plugins.ui"),
 
-  require('plugins.development'),
+	require("plugins.development"),
 
-  require('plugins.languages'),
+	require("plugins.languages"),
 }

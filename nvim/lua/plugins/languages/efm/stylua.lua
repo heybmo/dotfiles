@@ -1,6 +1,6 @@
 local M = {
-  formatCommand = 'stylua -s --stdin-filepath ${INPUT} -',
-  formatStdin = true,
+	formatCommand = "stylua -s --stdin-filepath ${INPUT} -",
+	formatStdin = true,
 }
 
 return M

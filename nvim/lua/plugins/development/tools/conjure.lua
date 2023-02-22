@@ -1,15 +1,15 @@
 local M = {
-	"ray-x/go.nvim",
-	dependencies = {
-		"nvim-treesitter/nvim-treesitter",
-		"neovim/nvim-lspconfig",
-		"ray-x/guihua.lua",
-	},
-	event = "BufEnter *.go",
+	"Olical/conjure",
+  dependencies = {
+    'tpope/vim-dispatch',
+    'clojure-vim/vim-jack-in',
+    'radenling/vim-dispatch-neovim'
+  },
+	event = "BufEnter *.clj",
 }
 
 function M.config()
-	require("go").setup()
+	require("conjure").setup()
 
 	local format_sync_grp = vim.api.nvim_create_augroup("GoFormat", {})
 	vim.api.nvim_create_autocmd("BufWritePre", {

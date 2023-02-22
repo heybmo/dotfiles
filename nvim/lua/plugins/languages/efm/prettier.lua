@@ -1,5 +1,5 @@
 local M = {
-  formatCommand = [[
+	formatCommand = [[
     $([ -n '$(command -v node_modules/.bin/prettier)' ] && echo 'node_modules/.bin/prettier' || echo 'prettier')
       stdin-filepath ${INPUT}
       ${--config-precedence:configPrecedence}
@@ -7,8 +7,7 @@ local M = {
       ${--single-quote:singleQuote}
       ${--trailing-comma:trailingComma}
   ]],
-  formatStdin = true,
+	formatStdin = true,
 }
 
 return M
-

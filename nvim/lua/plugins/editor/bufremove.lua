@@ -1,5 +1,5 @@
 local M = {
-    'echasnovski/mini.bufremove',
+	"echasnovski/mini.bufremove",
     -- stylua: ignore
     keys = {
       {
@@ -21,6 +21,6 @@ local M = {
         desc = 'Delete Buffer (Force)'
       },
     },
-  }
+}
 
-  return M
+return M

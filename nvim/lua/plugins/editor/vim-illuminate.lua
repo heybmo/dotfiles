@@ -1,10 +1,10 @@
 local M = {
-    'RRethy/vim-illuminate',
-    event = 'BufReadPost',
-    opts = { delay = 200 },
-    config = function(_, opts)
-      require('illuminate').configure(opts)
-    end,
+	"RRethy/vim-illuminate",
+	event = "BufReadPost",
+	opts = { delay = 200 },
+	config = function(_, opts)
+		require("illuminate").configure(opts)
+	end,
     -- stylua: ignore
     keys = {
       {
@@ -22,6 +22,6 @@ local M = {
         desc = 'Prev Reference',
       },
     },
-  }
+}
 
-  return M
+return M

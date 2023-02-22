@@ -1,8 +1,8 @@
 local M = {
-	lintCommand = "staticcheck",
+	lintCommand = "go vet",
 	lintIgnoreExitCode = true,
 	lintFormats = { "%f:%l:%c: %m" },
-	lintSource = "staticcheck",
+	lintSource = "go vet",
 }
 
 return M
