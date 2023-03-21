@@ -1,5 +1,5 @@
 local M = {
-  'windwp/nvim-spectre',
+	"windwp/nvim-spectre",
   -- stylua: ignore
   keys = {
     {

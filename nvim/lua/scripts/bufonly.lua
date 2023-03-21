@@ -1,4 +1,4 @@
-vim.cmd [[
+vim.cmd([[
   " BufOnly.vim  -  Delete all the buffers except the current/named buffer.
   "
   " Copyright November 2003 by Christian J. Robinson <infynity@onewest.net>
@@ -68,5 +68,4 @@ vim.cmd [[
     endif
 
   endfunction
-]]
-
+]])
