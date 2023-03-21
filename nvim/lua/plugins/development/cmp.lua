@@ -16,7 +16,7 @@ local M = {
 
 function M.config()
 	local cmp = require("cmp")
-	require("luasnip")
+	local luasnip = require("luasnip")
 	local lspkind = require("lspkind")
 
 	require("luasnip/loaders/from_vscode").lazy_load()
@@ -48,28 +48,28 @@ function M.config()
 			["<Down>"] = cmp.mapping(cmp.mapping.select_next_item(), { "i", "c" }),
 			["<C-b>"] = cmp.mapping(cmp.mapping.scroll_docs(-1), { "i", "c" }),
 			["<C-f>"] = cmp.mapping(cmp.mapping.scroll_docs(1), { "i", "c" }),
-			["<C-Space>"] = cmp.mapping(cmp.mapping.complete(), { "i", "c" }),
 			["<CR>"] = cmp.mapping.confirm({ select = true }),
 			-- ['<Right>'] = cmp.mapping.confirm { select = true },
-			-- ["<Tab>"] = cmp.mapping(function(fallback)
-			-- if cmp.visible() then
-			--   cmp.select_next_item()
-			-- elseif luasnip.expand_or_jumpable() then
-			--   luasnip.expand_or_jump()
-			-- else
-			--   fallback()
-			-- end
-			-- end, { "i", "s" }),
+			["<Tab>"] = cmp.mapping(function(fallback)
+        if cmp.visible() then
+          cmp.select_next_item()
+        elseif luasnip.expand_or_jumpable() then
+          luasnip.expand_or_jump()
+        else
+          fallback()
+        end
+			end,
+      { "i", "s" }),
 
-			-- ["<S-Tab>"] = cmp.mapping(function(fallback)
-			-- if cmp.visible() then
-			--   cmp.select_prev_item()
-			-- elseif luasnip.jumpable(-1) then
-			--   luasnip.jump(-1)
-			-- else
-			--   fallback()
-			-- end
-			-- end, { "i", "s" }),
+			["<S-Tab>"] = cmp.mapping(function(fallback)
+			if cmp.visible() then
+			  cmp.select_prev_item()
+			elseif luasnip.jumpable(-1) then
+			  luasnip.jump(-1)
+			else
+			  fallback()
+			end
+			end, { "i", "s" }),
 		},
 
 		formatting = {
