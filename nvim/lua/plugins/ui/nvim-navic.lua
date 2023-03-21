@@ -11,6 +11,7 @@ end
 
 local M = {
 	"SmiteshP/nvim-navic",
+  dependencies = {"neovim/nvim-lspconfig"},
 	init = function()
 		vim.g.navic_silence = true
 		on_attach(function(client, buffer)
