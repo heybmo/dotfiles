@@ -81,86 +81,17 @@ plugins=(
   git
   # Custom plugin from https://python-poetry.org/docs/#enable-tab-completion-for-bash-fish-or-zsh
   poetry
-)
+);
 
-source $ZSH/oh-my-zsh.sh
+source $ZSH/oh-my-zsh.sh;
 
-# User configuration
+#==============================================================================
+# BEGIN USER CONFIGURATION 
+SHELLCONF_DIR="${HOME}/.config/shellconf";
 
-# export MANPATH="/usr/local/man:$MANPATH"
-
-# You may need to manually set your language environment
-export LC_ALL=en_US.UTF-8
-export LANG=en_US.UTF-8
-
-# Preferred editor for local and remote sessions
-if [[ -n $SSH_CONNECTION ]]; then
-  export EDITOR='vim'
-else
-  export EDITOR='nvim'
-fi
-
-# Remap vim -> nvim
-alias e="nvim";
-alias v="nvim";
-alias vim="nvim";
-
-# Aliases
-alias l="exa -lah --icons";
-alias lt="exa -T --long --icons";
-alias lg="exa --long --git --icons";
-alias c="bat";
-
-# Compilation flags
-export ARCHFLAGS="-arch arm64"
-
-
-# Set personal aliases, overriding those provided by oh-my-zsh libs,
-# plugins, and themes. Aliases can be placed here, though oh-my-zsh
-# users are encouraged to define aliases within the ZSH_CUSTOM folder.
-# For a full list of active aliases, run `alias`.
-#
-# Example aliases
-# alias zshconfig="mate ~/.zshrc"
-# alias ohmyzsh="mate ~/.oh-my-zsh"
-source /opt/homebrew/opt/powerlevel10k/powerlevel10k.zsh-theme
-
-# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
-[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
-
-# Make homebrew work
-eval "$(/opt/homebrew/bin/brew shellenv)"
-# Avoid potential python conflicts
-alias brew='env PATH="${PATH//$(pyenv root)\/shims:/}" brew'
-
-# FZF
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-if type rg &> /dev/null; then
-    export FZF_DEFAULT_COMMAND='rg --files --pretty --smart-case --hidden --follow --vimgrep --glob "!.git/*"';
-    export FZF_DEFAULT_OPTS='-m --height 50% --border';
-fi
-
-# Python
-alias brew='env PATH="${PATH//$(pyenv root)\/shims:/}" brew';
-export PYENV_ROOT="$HOME/.pyenv";
-export PATH="$PYENV_ROOT/bin:$PATH";
-eval "$(pyenv init -)";
-
-# NVM
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-
-# JEnv
-export PATH="$HOME/.jenv/bin:$PATH"
-eval "$(jenv init -)"
-
-# Golang
-export GOPATH="$HOME/go";
-export PATH="$PATH:$GOPATH/bin";
-export GOBIN="$GOPATH/bin";
-
-# GCC
-# Symlink gcc correctly
-alias gcc="/opt/homebrew/bin/gcc-12";
+source "${SHELLCONF_DIR}/util.sh";
+source "${SHELLCONF_DIR}/aliases.sh";
+source "${SHELLCONF_DIR}/ui.sh";
+source "${SHELLCONF_DIR}/tools.sh";
+source "${SHELLCONF_DIR}/languages.sh";
 
