@@ -1,4 +1,4 @@
-
+-- https://stackoverflow.com/questions/9168058/how-to-dump-a-table-to-console
 local M = {}
 
 M.dump_table = function(o)
@@ -16,7 +16,7 @@ M.dump_table = function(o)
 	end
 end
 
-M.root_patterns = { "package.json", "README.md", "README.rst", "README.txt", ".git", "Makefile" }
+M.root_patterns = { "package.json", "/lua", "README.md", "README.rst", "README.txt", ".git", "Makefile" }
 
 M.get_root = function()
 	---@type string?

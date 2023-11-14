@@ -1,11 +1,8 @@
+--@description: Plugins directory, exports all configured packages.
+
 return {
-	require("plugins.colorschemes"),
-
-	require("plugins.editor"),
-
-	require("plugins.ui"),
-
-	require("plugins.development"),
-
-	require("plugins.languages"),
+  require("plugins.lsp"),
+  require("plugins.coding"),
+  require("plugins.editor"),
+  require("plugins.ui"),
 }
