@@ -1,6 +1,8 @@
-local M = {
-    require("plugins.editor"),
-    require("plugins.coding"),
-}
+--@description: Plugins directory, exports all configured packages.
 
-return M
+return {
+  require("plugins.lsp"),
+  require("plugins.coding"),
+  require("plugins.editor"),
+  require("plugins.ui"),
+}
