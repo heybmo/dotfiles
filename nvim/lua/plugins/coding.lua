@@ -161,7 +161,13 @@ local M = {
           ["<C-f>"] = cmp.mapping.scroll_docs(4),
           ["<C-Space>"] = cmp.mapping.complete(),
           ["<C-e>"] = cmp.mapping.abort(),
-          ["<CR>"] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
+		  ["<Down>"] = cmp.mapping(
+			cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Select }),
+			{ "i", "c" }
+		  ),
+			["<Tab>"] = cmp.mapping(cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Insert }), { "c" }),
+			["<Up>"] = cmp.mapping(cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Select }), { "i", "c" }),
+          ["<CR>"] = cmp.mapping.confirm({ select = false }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
           ["<S-CR>"] = cmp.mapping.confirm({
             behavior = cmp.ConfirmBehavior.Replace,
             select = true,
@@ -244,19 +250,40 @@ local M = {
     end,
   },
   -- Show indent scope
-  { 'echasnovski/mini.indentscope', version = '*' },
+  { 'echasnovski/mini.indentscope',
+	version = '*',
+	config = function()
+	  require("mini.indentscope").setup()
+	end
+  },
 
   -- Better textobjects
-  { 'echasnovski/mini.ai', version = '*' },
+  { 'echasnovski/mini.ai',
+    version = '*',
+	config = function()
+	  require("mini.ai").setup()
+	end},
 
   -- Move around with brackets
-  { 'echasnovski/mini.bracketed', version = '*' },
+  { 'echasnovski/mini.bracketed',
+    version = '*',
+	config = function()
+	  require("mini.bracketed").setup()
+	end},
 
   -- Autopairs
-  { 'echasnovski/mini.pairs', version = '*' },
+  { 'echasnovski/mini.pairs',
+    version = '*',
+    config = function()
+			require("mini.pairs").setup()
+	end},
 
   -- Better surround actions
-  { 'echasnovski/mini.surround', version = '*' },
+  { 'echasnovski/mini.surround',
+	version = '*',
+	config = function()
+		require("mini.surround").setup()
+	end},
 }
 
 return M

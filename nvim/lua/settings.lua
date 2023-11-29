@@ -15,6 +15,10 @@ o.autoread = true
 -- Confirm to save changes before exiting modified buffer.
 o.confirm = true
 
+o.shiftwidth = 2
+o.tabstop = 2
+o.textwidth = 79
+
 
 -- Mapping waiting time
 o.redrawtime = 1500
