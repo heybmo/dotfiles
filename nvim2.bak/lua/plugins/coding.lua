@@ -145,15 +145,21 @@ local M = {
       vim.api.nvim_set_hl(0, "CmpGhostText", { link = "Comment", default = true })
       local cmp = require("cmp")
       local defaults = require("cmp.config.default")()
+
+			-- Options map to return
       return {
         completion = {
-          completeopt = "menu,menuone,noinsert",
+          completeopt = "menu,menuone,noinsert,longest",
         },
         snippet = {
           expand = function(args)
             require("luasnip").lsp_expand(args.body)
           end,
         },
+				window = {
+					completion    = cmp.config.window.bordered(),
+    			documentation = cmp.config.window.bordered(),
+				},
         mapping = cmp.mapping.preset.insert({
           ["<C-n>"] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Insert }),
           ["<C-p>"] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Insert }),
@@ -165,7 +171,8 @@ local M = {
 			cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Select }),
 			{ "i", "c" }
 		  ),
-			["<Tab>"] = cmp.mapping(cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Insert }), { "c" }),
+			-- Disable tab completion (for now)
+			-- ["<Tab>"] = cmp.mapping(cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Insert }), { "c" }),
 			["<Up>"] = cmp.mapping(cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Select }), { "i", "c" }),
           ["<CR>"] = cmp.mapping.confirm({ select = false }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
           ["<S-CR>"] = cmp.mapping.confirm({

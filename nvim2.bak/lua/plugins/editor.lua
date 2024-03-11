@@ -1,6 +1,18 @@
 
 local Util = require("util")
 
+-- Workaround for "E490: No fold found" error
+-- https://github.com/nvim-telescope/telescope.nvim/issues/699#issuecomment-1745374486
+vim.api.nvim_create_autocmd("BufEnter", {
+  callback = function()
+    if vim.opt.foldmethod:get() == "expr" then
+      vim.schedule(function()
+        vim.opt.foldmethod = "expr"
+      end)
+    end
+  end,
+})
+
 local M = {
   {
     "folke/which-key.nvim",

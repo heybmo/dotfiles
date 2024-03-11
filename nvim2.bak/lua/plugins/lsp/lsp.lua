@@ -8,7 +8,7 @@ local M = {
     "folke/which-key.nvim",
   },
   version = false,
-  config = function(_, opts)
+  config = function(_, _)
     local lspconfig = require("lspconfig")
 
     --------------------------------

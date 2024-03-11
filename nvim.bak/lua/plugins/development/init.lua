@@ -8,5 +8,6 @@ return {
 	require("plugins.development.mini-ai"),
 	require("plugins.development.surround"),
 	require("plugins.development.whitespace"),
+	require("plugins.development.trouble"),
 	require("plugins.development.tools"),
 }
