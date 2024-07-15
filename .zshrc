@@ -79,8 +79,6 @@ ZSH_THEME="robbyrussell"
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(
   git
-  # Custom plugin from https://python-poetry.org/docs/#enable-tab-completion-for-bash-fish-or-zsh
-  poetry
 )
 
 source $ZSH/oh-my-zsh.sh
@@ -163,4 +161,21 @@ export GOBIN="$GOPATH/bin";
 # GCC
 # Symlink gcc correctly
 alias gcc="/opt/homebrew/bin/gcc-12";
+
+
+# MAKE brew-installed executables actually executable
+export PATH="$PATH:/opt/homebrew/bin";
+
+
+# Created by `pipx` on 2024-04-20 21:22:57
+export PATH="$PATH:/Users/brian/.local/bin";
+
+
+# Source all secrets located in home dir
+secrets_path="$HOME/.secrets/**/*";
+mkdir -p $secrets_path;
+for file in $secrets_path;
+  do source $file;
+done;
+
 
