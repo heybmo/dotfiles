@@ -7,3 +7,4 @@
     ~/.config/nvim: nvim
     ~/.zshrc: .zshrc
     ~/.tools_list: tools_list
+    ~/notebook: notebook
