@@ -104,9 +104,9 @@ alias v="nvim";
 alias vim="nvim";
 
 # Aliases
-alias l="exa -lah --icons";
-alias lt="exa -T --long --icons";
-alias lg="exa --long --git --icons";
+alias l="eza -lah --icons";
+alias lt="eza -T --long --icons";
+alias lg="eza --long --git --icons";
 alias c="bat";
 
 # Compilation flags
@@ -178,4 +178,6 @@ for file in $secrets_path;
   do source $file;
 done;
 
+
+alias scratch="nvim $HOME/notebook/";
 
