@@ -1,3 +1,9 @@
-local M = { 'echasnovski/mini.pairs', version = '*' }
+local M = {
+  'echasnovski/mini.pairs',
+  version = '*',
+  config = function()
+    require('mini.pairs').setup()
+  end
+}
 
 return M

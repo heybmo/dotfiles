@@ -1,7 +1,8 @@
 -- Specify colorscheme(s) for Neovim
 
 local M = {
-  "LazyVim/LazyVim",
+  "catppuccin/nvim",
+  priority = 1000,
   opts = {
     colorscheme = "catppuccin-macchiato",
   },

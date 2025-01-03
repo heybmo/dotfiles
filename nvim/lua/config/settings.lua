@@ -52,5 +52,5 @@ opt.termguicolors = true -- True color support
 opt.timeoutlen = vim.g.vscode and 1000 or 300
 opt.undofile = true
 opt.undolevels = 10000
-opt.updatetime = 200
+opt.updatetime = 300
 opt.wrap = false -- Disable line wrapping

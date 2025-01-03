@@ -10,6 +10,9 @@ local M = {
   require("plugins.editor.telescope"),
   require("plugins.editor.lualine"),
   require("plugins.editor.colorscheme"),
+  require("plugins.editor.bufferline"),
+  require("plugins.editor.noice"),
+  require("plugins.editor.snacks"),
 }
 
 return M

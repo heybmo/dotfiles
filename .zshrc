@@ -178,6 +178,8 @@ for file in $secrets_path;
   do source $file;
 done;
 
+# Source Rust
+. "$HOME/.cargo/env"
 
 alias scratch="nvim $HOME/notebook/";
 
