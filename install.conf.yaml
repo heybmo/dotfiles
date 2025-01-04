@@ -8,3 +8,4 @@
     ~/.zshrc: .zshrc
     ~/.tools_list: tools_list
     ~/notebook: notebook
+    ~/.tmux.conf: .tmux.conf
