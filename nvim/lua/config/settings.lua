@@ -10,19 +10,19 @@ vim.g.maplocalleader = "\\"
 vim.g.autoformat = true
 
 opt.autowrite = true
-opt.clipboard = vim.env.SSH_TTY and "" or "unnamedplus"
+opt.clipboard = "unnamedplus"
 opt.completeopt = "menu,menuone,noselect"
 opt.conceallevel = 2 -- Hide `*` markup
 opt.confirm = true -- confirm to save changes before exiting buffer
 opt.cursorline = true -- highlight current line
 opt.expandtab = true -- spaces over tabs, spaces ftw
 opt.fillchars = {
-  foldopen = "▼",
-  foldclose = "▶",
-  fold = " ",
-  foldsep = " ",
-  diff = "/",
-  eob = " ",
+	foldopen = "▼",
+	foldclose = "▶",
+	fold = " ",
+	foldsep = " ",
+	diff = "/",
+	eob = " ",
 }
 
 opt.foldlevel = 99
