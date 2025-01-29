@@ -14,6 +14,7 @@ local M = {
 	require("plugins.editor.noice"),
 	require("plugins.editor.snacks"),
 	require("plugins.editor.tmux_nav"),
+	require("plugins.editor.alpha"),
 }
 
 return M
