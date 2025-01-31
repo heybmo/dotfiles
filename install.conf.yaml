@@ -9,3 +9,6 @@
     ~/.tools_list: tools_list
     ~/notebook: notebook
     ~/.tmux.conf: .tmux.conf
+
+- shell:
+  - [git submodule update --init --recursive, Installing submodules]
