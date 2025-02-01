@@ -208,13 +208,13 @@ wk.add({
   {
     "p",
     "<Plug>(YankyPutAfter)",
-    "Paste",
+    desc = "Paste",
     mode = { "n", "x" },
   },
   {
     "P",
     "<Plug>(YankyPutBefore)",
-    "Paste Before",
+    desc = "Paste Before",
     mode = { "n", "x" },
   },
   {

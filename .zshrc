@@ -1,11 +1,4 @@
 export XDG_CONFIG_HOME="$HOME/.config/"
-# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
-# Initialization code that may require console input (password prompts, [y/n]
-# confirmations, etc.) must go above this block; everything else may go below.
-if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
-  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
-fi
-
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
@@ -113,20 +106,6 @@ alias c="bat";
 # Compilation flags
 export ARCHFLAGS="-arch arm64"
 
-
-# Set personal aliases, overriding those provided by oh-my-zsh libs,
-# plugins, and themes. Aliases can be placed here, though oh-my-zsh
-# users are encouraged to define aliases within the ZSH_CUSTOM folder.
-# For a full list of active aliases, run `alias`.
-#
-# Example aliases
-# alias zshconfig="mate ~/.zshrc"
-# alias ohmyzsh="mate ~/.oh-my-zsh"
-source /opt/homebrew/opt/powerlevel10k/powerlevel10k.zsh-theme
-
-# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
-[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
-
 # Make homebrew work
 eval "$(/opt/homebrew/bin/brew shellenv)"
 # Avoid potential python conflicts
@@ -169,7 +148,7 @@ export PATH="$PATH:/opt/homebrew/bin";
 
 
 # Created by `pipx` on 2024-04-20 21:22:57
-export PATH="$PATH:/Users/brian/.local/bin";
+export PATH="$PATH:${HOME}/.local/bin";
 
 
 # Source all secrets located in home dir
@@ -180,7 +159,11 @@ for file in $secrets_path;
 done;
 
 # Source Rust
-. "$HOME/.cargo/env"
+. "$HOME/.cargo/env";
 
-alias scratch="nvim $HOME/notebook/";
+export PATH="$PATH:${HOME}/scripts"
 
+
+# USE STARSHIP THEMING
+# KEEP AT THE END
+eval "$(starship init zsh)";
