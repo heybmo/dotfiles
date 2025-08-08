@@ -9,7 +9,7 @@ export ZSH="$HOME/.oh-my-zsh"
 # load a random theme each time oh-my-zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
-ZSH_THEME="robbyrussell"
+ZSH_THEME=""
 
 # Set list of themes to pick from when loading at random
 # Setting this variable when ZSH_THEME=random will cause zsh to load
@@ -114,8 +114,7 @@ alias brew='env PATH="${PATH//$(pyenv root)\/shims:/}" brew'
 # FZF
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 if type rg &> /dev/null; then
-    export FZF_DEFAULT_COMMAND='rg --files --pretty --smart-case --hidden --follow --vimgrep --glob "!.git/*"';
-    export FZF_DEFAULT_OPTS='-m --height 50% --border';
+    export FZF_DEFAULT_COMMAND='rg --files --no-ignore-vcs --hidden';
 fi
 
 # Python

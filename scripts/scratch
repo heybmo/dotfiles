@@ -3,7 +3,7 @@
 uuid="$(uuidgen)"
 extension_type="$1"
 
-echo "$extension_type"
+echo "generating file with extension type: $extension_type"
 
 if [ -z "$extension_type" ]; then
   echo "Extension type not provided; exiting"

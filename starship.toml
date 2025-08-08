@@ -16,8 +16,8 @@ $directory\
 $git_branch\
 $git_status\
 [](fg:color_aqua bg:color_blue)\
-$cmd_duration\
 [](fg:color_blue bg:color_bg1)\
+$cmd_duration\
 $time\
 [ ](fg:color_bg1)\
 $character\
@@ -38,7 +38,7 @@ color_red = '#cc241d'
 color_yellow = '#d79921'
 
 [battery]
-disabled = false
+disabled = true
 format = '[ $symbol](bg:color_orange)'
 
 [[battery.display]]
@@ -54,7 +54,10 @@ threshold = 100
 style = 'bold green'
 
 [cmd_duration]
-min_time = 1_000
+min_time = 300
+show_milliseconds = true
+format = "[$duration]($style)"
+style = "bg:color_bg1"
 
 [username]
 show_always = true
@@ -122,7 +125,7 @@ vimcmd_replace_symbol = '[](bold fg:color_purple)'
 vimcmd_visual_symbol = '[](bold fg:color_yellow)'
 
 [time]
-disabled = false
+disabled = true
 time_format = "%b %d, %H:%M:%S.%3f"
 style = "bg:color_bg1"
 format = '[[  $time ](fg:color_fg0 bg:color_bg1)]($style)'
