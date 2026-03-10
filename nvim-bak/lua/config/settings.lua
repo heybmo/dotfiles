@@ -31,30 +31,24 @@ opt.foldlevelstart = 10
 opt.foldnestmax = 10
 opt.foldenable = true
 
-if vim.fn.has("nvim-0.10") == 1 then
-	opt.smoothscroll = true
-	opt.foldexpr = "v:lua.vim.treesitter.foldexpr()"
-	opt.foldtext = "v:lua.vim.treesitter.foldtext()"
-	opt.foldmethod = "expr"
-	opt.foldtext = ""
-else
-	opt.foldmethod = "indent"
-	opt.foldtext = "v:lua.require'lazyvim.util'.ui.foldtext()"
-end
+opt.smoothscroll = true
+opt.foldexpr = "v:lua.vim.treesitter.foldexpr()"
+opt.foldtext = "v:lua.vim.treesitter.foldtext()"
+opt.foldmethod = "expr"
+opt.foldtext = ""
 
 opt.grepformat = "%f:%l:%c:%m"
 opt.grepprg = "rg --vimgrep"
 opt.ignorecase = true
 opt.inccommand = "nosplit"
 opt.laststatus = 3
-opt.linebreak = true
+opt.linebreak = false
 
-opt.linebreak = true
 opt.mouse = "a"
 
 opt.number = true
 opt.relativenumber = false
-opt.ruler = false
+opt.ruler = true
 opt.scrolloff = 4 -- Lines of context around
 opt.shiftround = true
 opt.shiftwidth = 2 -- indent size default
@@ -69,4 +63,4 @@ opt.timeoutlen = vim.g.vscode and 1000 or 300
 opt.undofile = true
 opt.undolevels = 1000
 opt.updatetime = 200
-opt.wrap = false -- Disable line wrapping
+opt.wrap = true -- enable line wrapping

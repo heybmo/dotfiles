@@ -160,9 +160,24 @@ done;
 # Source Rust
 . "$HOME/.cargo/env";
 
-export PATH="$PATH:${HOME}/scripts"
-
+# export PATH="$PATH:${HOME}/scripts"
 
 # USE STARSHIP THEMING
 # KEEP AT THE END
 eval "$(starship init zsh)";
+
+
+# Add ability to run claude sandbox
+# source /Users/brian/projects/claude-sandbox/sandbox.sh;
+
+. "$HOME/.local/bin/env"
+
+# Add support for Perl (for MacTeX)
+
+PATH="/Users/brian/perl5/bin${PATH:+:${PATH}}"; export PATH;
+PERL5LIB="/Users/brian/perl5/lib/perl5${PERL5LIB:+:${PERL5LIB}}"; export PERL5LIB;
+PERL_LOCAL_LIB_ROOT="/Users/brian/perl5${PERL_LOCAL_LIB_ROOT:+:${PERL_LOCAL_LIB_ROOT}}"; export PERL_LOCAL_LIB_ROOT;
+PERL_MB_OPT="--install_base \"/Users/brian/perl5\""; export PERL_MB_OPT;
+PERL_MM_OPT="INSTALL_BASE=/Users/brian/perl5"; export PERL_MM_OPT;
+
+source ~/perl5/perlbrew/etc/bashrc

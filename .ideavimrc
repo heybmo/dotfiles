@@ -1,0 +1,128 @@
+" IDEAVIM CONFIG FOR JETBRAINS IDEs
+"
+
+""" Map leader to space ---------------------
+let mapleader=" "
+
+""" Plugins  --------------------------------
+set surround
+set multiple-cursors
+set commentary
+set argtextobj
+set easymotion
+set textobj-entire
+set ReplaceWithRegister
+set NERDTree
+
+""" Plugin settings -------------------------
+let g:argtextobj_pairs="[:],(:),<:>"
+
+""" Common settings -------------------------
+set showmode
+set so=5
+set incsearch
+set nu
+set ttimeout		" time out for key codes
+set ttimeoutlen=300	" wait up to 100ms after Esc for special key
+set display=truncate
+set history=150000
+set showcmd
+set sidescrolloff=5
+filetype plugin indent on
+set clipboard^=unnamedplus,unnamed
+set hlsearch
+set ignorecase
+set smartcase
+set visualbell
+set showmode
+set colorcolumn=80
+
+""" Idea specific settings ------------------
+set ideajoin
+set ideastatusicon=green
+set idearefactormode=keep
+set ideamarks
+
+""" Keymaps ---------------------------------
+nnoremap <leader><space> :nohlsearch<CR>
+
+" Copy/Paste
+vmap <leader>yiw "+yiw
+nmap <leader>yiw "+yiw
+vmap <leader>y "+y
+vmap <leader>d "_d
+nmap <leader>y "+yy
+nmap <leader>p "+p
+nmap <leader>P "+P
+vmap <leader>p "+p
+vmap <leader>P "+P
+
+" IdeaVim action mappings
+nmap [[ <Action>(MethodUp) <CR>
+nmap ]] <Action>(MethodDown) <CR>
+nmap <D-Right> <Action>(NextTab) <CR>
+nmap <D-Left> <Action>(PreviousTab) <CR>
+
+nmap <leader>h <Action>(HighlightUsagesInFile) " use cmd+g/shift+cmd+g to iterate
+
+" Move lines up, down
+nmap <C-j> <Action>(MoveLineDown)
+xmap <C-j> <Action>(MoveLineDown)
+nmap <C-k> <Action>(MoveLineUp)
+xmap <C-k> <Action>(MoveLineUp)
+
+" (g)o to
+nnoremap gr :action RecentFiles <CR>
+nnoremap <leader>gc :action GotoClass <CR>
+vnoremap <leader>gc :action GotoClass <CR>
+nnoremap <leader>gf :action GotoFile <CR>
+vnoremap <leader>gf :action GotoFile <CR>
+nnoremap <leader>ww :action HideAllWindows <CR>
+nnoremap gs :action GotoSuperMethod <CR>
+nnoremap gi :action GotoImplementation <CR>
+nnoremap gd :action GotoDeclaration <CR>
+noremap <Space>rf :action RenameFile<CR>
+
+" Find/Select
+vnoremap / :action Find<CR>
+nnoremap / :action Find<CR>
+nnoremap <leader>ss :action SelectInProjectView<CR>
+nnoremap U :action FindUsages <CR>
+vnoremap U :action FindUsages <CR>
+nnoremap <leader>/ :action SearchEverywhere <CR>
+
+" Window Management
+nnoremap <leader>wu <Action>(Unsplit)<CR>
+nmap <leader>wR <Action>(MoveTabRight)<CR>
+nmap <leader>wd <Action>(CloseContent)<CR>
+nmap <leader>wh <C-w><Left> <CR>
+nmap <leader>wj <C-w><Down> <CR>
+nmap <leader>wk <C-w><Up> <CR>
+nmap <leader>wl <C-w><Right> <CR>
+nmap <leader>w<Left> <C-w><Left> <CR>
+nmap <leader>w<Right> <C-w><Right> <CR>
+nmap <leader>w<Up> <C-w><Up> <CR>
+nmap <leader>w<Down> <C-w><Down> <CR>
+
+
+" (F)iles / NERDTree setup
+nnoremap <leader>ft :NERDTreeToggle <cr>
+nnoremap <leader>fr :NERDTreeRefreshRoot <cr>
+nnoremap <leader>ff :NERDTree <cr>
+nmap <leader>fa <Action>(NewFile)<CR>
+nmap <leader>fD <Action>($Delete)<CR>
+
+" Reload ideavimrc
+nmap <leader>sr :source ~/.ideavimrc <cr>
+
+""" Plugins using 'Plug' --------------------
+Plug 'easymotion/vim-easymotion'	" Requires IdeaVim-EasyMotion. Lots of mappings
+Plug 'kana/vim-textobj-entire'		" entire buffer text object: ae
+Plug 'machakann/vim-highlightedyank'
+Plug 'terryma/vim-multiple-cursors'	" See below for remapped keys. <A-n> doesn't work on Mac
+Plug 'tommcdo/vim-exchange'		    " cx{motion} to select, again to exchange
+Plug 'tpope/vim-commentary'		    " [count]gc{motion}, o_gc, v_gc, gcc
+Plug 'tpope/vim-surround'		    " ys, cs, ds, S
+Plug 'vim-scripts/argtextobj.vim'	    " argument text objects: aa, ia
+Plug 'vim-scripts/ReplaceWithRegister'  " [count][{reg}]gr{motion}, [count][{reg}]grr, {Visual}[{reg}]gr
+Plug 'preservim/nerdtree'

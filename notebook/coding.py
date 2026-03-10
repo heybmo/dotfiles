@@ -1,7 +1,15 @@
 """"""
-def test():
-    pass
+from typing import Dict, List
 
 
-if __name__ == '__main__':
-    test()
+class Coffee:
+    def __init__(self, name: str, price: int, recipe: Dict[str, int]):
+        self.name = name
+        self.price = price
+        self.recipe = recipe
+
+class VendingMachine:
+    def __init__(self, stock: List[Coffee]):
+        self.stock = stock
+
+    

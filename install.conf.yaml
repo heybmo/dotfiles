@@ -9,8 +9,10 @@
     ~/.tools_list: tools_list
     ~/notebook: notebook
     ~/.tmux.conf: .tmux.conf
-    ~/scripts: scripts
+    ~/.config/scripts: scripts
     ~/.config/starship.toml: starship.toml
+    ~/.ideavimrc: .ideavimrc
+    ~/.config/ghostty: ghostty
 
 - shell:
   - [git submodule update --init --recursive, Installing submodules]

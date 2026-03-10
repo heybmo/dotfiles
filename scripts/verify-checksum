@@ -1,0 +1,82 @@
+#!/usr/bin/env bash
+
+hash_func="";
+
+print_help () {
+	echo "$0 : <hash_func_arg> <filepath> <expected_hash_value>";
+	echo -e "\nArgs:";
+	echo -e "\thash_func_arg: One of: sha256, sha512";
+	echo -e "\tfilepath: Path to file for which the shasum should be computed and compared to";
+	echo -e "\texpected_hash_value: Shasum value as a string";
+	return 0;
+};
+
+check_match () {
+	local filepath="$1";
+	local expected_hash_value="$2";
+
+
+	if [[ -z "$filepath" || -z "$expected_hash_value" ]]; then
+		echo "File path and expected shasum value expected";
+		echo "Received filepath: $filepath, expected_hash_value: $expected_hash_value";
+		return 1;
+	fi
+
+	local file_hash_value;
+	file_hash_value=$($hash_func "$filepath" | awk '{print $1}');
+
+	echo "Checking for match...";
+	if [[ "$expected_hash_value" == "$file_hash_value" ]]; then
+		echo "Hashes matched!";
+		return 0;
+	else
+		echo "Hashes do NOT match!";
+		echo "Expected: $expected_hash_value";
+		echo "Computed: $file_hash_value";
+		return 1;
+	fi
+};
+
+main () {
+	local hash_func_arg="$1";
+	local filepath="$2";
+	local expected_hash_value="$3";
+
+	if [[ -z "$hash_func_arg" || -z "$filepath" || -z "$expected_hash_value" ]]; then
+		print_help;
+		return 1;
+	fi
+
+	if [[ ! -f "$filepath" ]]; then
+    echo "File not found: $filepath"
+	print_help;
+    return 1
+fi
+
+	case "$hash_func_arg" in
+		*256*)
+			echo "Using sha256sum to compute hash";
+			hash_func=sha256sum;
+			;;
+		*512*)
+			echo "Using sha512sum to compute hash";
+			hash_func=sha512sum;
+			;;
+		*md5*)
+			echo "Using md5 to compute hash";
+			hash_func=md5sum;
+			;;
+		*)
+			echo "Unknown shasum function: $hash_func_arg";
+			print_help;
+			return 1;
+	esac
+
+	check_match "$filepath" "$expected_hash_value"
+	local result=$?
+
+	unset hash_func
+	return $result;
+}
+
+main "$@";

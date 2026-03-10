@@ -1,0 +1,7 @@
+[project]
+name = "bmoscripts"
+version = "0.1.0"
+description = "[Ba|z][sh] tooling for my own stuff."
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = []

@@ -1,0 +1,41 @@
+theme = dark:Catppuccin Frappe,light:Catppuccin Latte
+
+# Cursor
+cursor-style = block
+cursor-style-blink = false
+
+# Font
+font-size = 13
+adjust-cell-height = 10%
+
+# Window
+window-padding-x = 8
+window-padding-y = 8
+window-padding-balance = true
+macos-titlebar-style = tabs
+
+# Scrollback
+scrollback-limit = 10000
+
+# Shell integration
+shell-integration-features = cursor,sudo,title
+
+# Copy on select
+copy-on-select = false
+
+# Close confirmation
+confirm-close-surface = false
+
+# Tabs
+keybind = cmd+t=new_tab
+keybind = cmd+shift+t=prompt_tab_title
+keybind = cmd+shift+w=prompt_surface_title
+keybind = cmd+shift+]=next_tab
+keybind = cmd+shift+[=previous_tab
+keybind = cmd+1=goto_tab:1
+keybind = cmd+2=goto_tab:2
+keybind = cmd+3=goto_tab:3
+keybind = cmd+4=goto_tab:4
+keybind = cmd+5=goto_tab:5
+
+env = TERMINAL=ghostty
