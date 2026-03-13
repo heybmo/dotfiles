@@ -17,8 +17,10 @@ map("n", "<leader><tab>", "<cmd>b#<cr>", { desc = "Toggle last buffer" })
 
 -- Window management (convenience aliases matching muscle memory from tmux)
 map("n", "<leader>wv", "<cmd>vsplit<cr>", { desc = "Split vertically" })
-map("n", "<leader>wh", "<cmd>split<cr>", { desc = "Split horizontally" })
 map("n", "<leader>wq", "<cmd>close<cr>", { desc = "Close window" })
+map("n", "<leader>wh", "<C-w>h", { desc = "Go to left window" })
+map("n", "<leader>w|", "<cmd>vsplit<cr>", { desc = "Split window vertically" })
+map("n", "<leader>w-", "<cmd>split<cr>", { desc = "Split window horizontally" })
 
 -- Move between windows with arrow keys as a fallback
 map("n", "<leader>wH", "<C-w>H", { desc = "Move window left" })

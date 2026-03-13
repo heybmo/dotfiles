@@ -1,0 +1,43 @@
+#!/usr/bin/env bash
+
+print_help() {
+	echo "Usage: $0 [-h hours] [-m minutes] [-s seconds]";
+	echo -e "\nExamples:";
+	echo -e "\t$0 -s 30";
+	echo -e "\t$0 -m 5";
+	echo -e "\t$0 -h 1 -m 30 -s 10";
+}
+
+main() {
+	local hours=0;
+	local minutes=0;
+	local seconds=0;
+
+	while getopts "h:m:s:" opt; do
+		case "$opt" in
+			h) hours="$OPTARG" ;;
+			m) minutes="$OPTARG" ;;
+			s) seconds="$OPTARG" ;;
+			*) print_help; return 1 ;;
+		esac
+	done
+
+	if [[ $hours -eq 0 && $minutes -eq 0 && $seconds -eq 0 ]]; then
+		print_help;
+		return 1;
+	fi
+
+	local total=$(( hours * 3600 + minutes * 60 + seconds ));
+
+	local label="";
+	[[ $hours -gt 0 ]] && label+="${hours}h ";
+	[[ $minutes -gt 0 ]] && label+="${minutes}m ";
+	[[ $seconds -gt 0 ]] && label+="${seconds}s";
+	label="${label%" "}";
+
+	echo "Timer started: ${label}";
+	sleep "$total";
+	osascript -e "display notification \"${label} timer done\" with title \"Timer\" sound name \"Glass\"";
+}
+
+main "$@";
