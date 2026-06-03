@@ -13,6 +13,11 @@
     ~/.config/starship.toml: starship.toml
     ~/.ideavimrc: .ideavimrc
     ~/.config/ghostty: ghostty
+    ~/.leetcode: .leetcode
+    ~/.claude/:
+      glob: true
+      path: .claude/*
+      create: true
 
 - shell:
   - [git submodule update --init --recursive, Installing submodules]

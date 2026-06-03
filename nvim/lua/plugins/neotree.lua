@@ -1,5 +1,7 @@
 return {
   "nvim-neo-tree/neo-tree.nvim",
+  -- Override LazyVim's init that auto-opens neo-tree when nvim starts with a directory
+  init = function() end,
   dependencies = {
     {
       "s1n7ax/nvim-window-picker",

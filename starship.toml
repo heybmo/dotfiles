@@ -7,19 +7,13 @@ add_newline = true
 
 format = """
 [](color_orange)\
-$os\
-$battery\
 $username\
 [](bg:color_yellow fg:color_orange)\
 $directory\
 [](fg:color_yellow bg:color_aqua)\
 $git_branch\
 $git_status\
-[](fg:color_aqua bg:color_blue)\
-[](fg:color_blue bg:color_bg1)\
-$cmd_duration\
-$time\
-[ ](fg:color_bg1)\
+[ ](fg:color_aqua)\
 $character\
 """
 
@@ -95,7 +89,7 @@ Pop = ""
 [directory]
 style = "fg:color_fg0 bg:color_yellow"
 format = "[ $path ]($style)"
-truncation_length = 3
+truncation_length = 2
 truncation_symbol = "…/"
 
 [directory.substitutions]
@@ -117,8 +111,8 @@ format = '[[($all_status$ahead_behind )](fg:color_fg0 bg:color_aqua)]($style)'
 
 [character]
 disabled = false
-success_symbol = '[](bold fg:color_green)'
-error_symbol = '[](bold fg:color_red)'
+success_symbol = '[\$](bold fg:color_green)'
+error_symbol = '[\$](bold fg:color_red)'
 vimcmd_symbol = '[](bold fg:color_green)'
 vimcmd_replace_one_symbol = '[](bold fg:color_purple)'
 vimcmd_replace_symbol = '[](bold fg:color_purple)'
