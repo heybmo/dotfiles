@@ -1,0 +1,92 @@
+#!/bin/bash
+# Terminal stopwatch — companion to the VS Code "Status Bar Timer" extension.
+# Controls: [space] start/pause · [c] checkpoint · [r] reset · [q] quit
+# Checkpoints print a permanent line above the clock: number, split since the
+# previous checkpoint, and total elapsed.
+# Run directly (`stopwatch`) or via the "Stopwatch" task in ~/.config/zed/tasks.json
+# (bound to `space t s` in vim normal mode).
+
+# Task runners sometimes spawn with stdin detached from the terminal; keys would
+# never arrive and read would EOF-spin. Bind stdin to the controlling tty instead.
+if [[ ! -t 0 ]]; then
+  exec </dev/tty || { echo "stopwatch: no terminal available for input" >&2; exit 1; }
+fi
+
+accumulated=0
+started_at="" # epoch seconds while running, empty while paused/stopped
+checkpoint_count=0
+last_checkpoint_total=0
+
+restore() {
+  stty echo 2>/dev/null
+  printf '\033]0;\007\033[?25h\n'
+}
+trap 'restore; exit 0' INT TERM
+trap restore EXIT
+
+elapsed() {
+  if [[ -n $started_at ]]; then
+    echo $((accumulated + $(date +%s) - started_at))
+  else
+    echo "$accumulated"
+  fi
+}
+
+fmt() { # fmt <seconds> -> mm:ss on stdout
+  printf '%02d:%02d' $(($1 / 60)) $(($1 % 60))
+}
+
+render() {
+  local total icon
+  total=$(elapsed)
+  if [[ -n $started_at ]]; then icon="⏸"; else icon="▶"; fi
+  # Mirror the time into the terminal tab title so it stays visible.
+  printf '\033]0;%s %s\007' "$icon" "$(fmt "$total")"
+  # Keep the redrawn line short so it never wraps (wrap breaks \r overwriting).
+  printf '\r\033[K %s %s ' "$icon" "$(fmt "$total")"
+}
+
+checkpoint() {
+  local total split
+  total=$(elapsed)
+  ((total == 0)) && return
+  split=$((total - last_checkpoint_total))
+  last_checkpoint_total=$total
+  checkpoint_count=$((checkpoint_count + 1))
+  # Replace the clock line with the checkpoint record; the next render
+  # redraws the clock on the fresh line below it.
+  printf '\r\033[K #%d  +%s  @ %s\n' "$checkpoint_count" "$(fmt "$split")" "$(fmt "$total")"
+}
+
+stty -echo 2>/dev/null # suppress echo between reads too, not just during them
+printf '\033[?25l'     # hide cursor while the clock redraws
+printf ' [space] start/pause · [c] checkpoint · [r] reset · [q] quit\n'
+
+while true; do
+  render
+  key=""
+  IFS= read -rsn1 -t 1 key
+  case $key in
+    " ")
+      if [[ -n $started_at ]]; then
+        accumulated=$((accumulated + $(date +%s) - started_at))
+        started_at=""
+      else
+        started_at=$(date +%s)
+      fi
+      ;;
+    c | C)
+      checkpoint
+      ;;
+    r | R)
+      ((checkpoint_count > 0)) && printf '\r\033[K --- reset ---\n'
+      accumulated=0
+      started_at=""
+      checkpoint_count=0
+      last_checkpoint_total=0
+      ;;
+    q | Q)
+      break
+      ;;
+  esac
+done

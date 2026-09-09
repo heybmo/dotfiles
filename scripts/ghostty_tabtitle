@@ -1,0 +1,50 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+# Toggle the `title = " "` line in the Ghostty config between commented
+# (tab titles shown) and uncommented (tab titles hidden).
+# Usage: ghostty_tabtitle [hide|show|toggle]   (default: toggle)
+
+config="${XDG_CONFIG_HOME:-$HOME/.config}/ghostty/config"
+line='title = " "'
+
+if [ ! -f "$config" ]; then
+	echo "error: ghostty config not found at $config" >&2
+	exit 1
+fi
+
+hidden=false
+if grep -qE "^[[:space:]]*${line}\$" "$config"; then
+	hidden=true
+elif ! grep -qE "^[[:space:]]*#[[:space:]]*${line}\$" "$config"; then
+	echo "error: no '${line}' line (commented or not) found in $config" >&2
+	exit 1
+fi
+
+action="${1:-toggle}"
+case "$action" in
+	toggle) if $hidden; then action=show; else action=hide; fi ;;
+	hide|show) ;;
+	*)
+		echo "Usage: $(basename "$0") [hide|show|toggle]" >&2
+		exit 1
+		;;
+esac
+
+if [ "$action" = hide ]; then
+	if $hidden; then
+		echo "tab titles already hidden"
+	else
+		sed -i '' -E "s/^[[:space:]]*#[[:space:]]*(${line})\$/\1/" "$config"
+		echo "tab titles hidden"
+	fi
+else
+	if $hidden; then
+		sed -i '' -E "s/^[[:space:]]*(${line})\$/# \1/" "$config"
+		echo "tab titles shown"
+	else
+		echo "tab titles already shown"
+	fi
+fi
+
+echo "press cmd+shift+, in ghostty to reload the config"

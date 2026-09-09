@@ -1,34 +1,21 @@
 return {
-  -- Catppuccin: matching ghostty (Frappe dark / Latte light) and tmux (Mocha)
+  -- Sonokai: https://github.com/sainnhe/sonokai
   {
-    "catppuccin/nvim",
-    name = "catppuccin",
+    "sainnhe/sonokai",
     lazy = false,
     priority = 1000,
-    opts = {
-      flavour = "frappe",
-      transparent_background = false,
-      integrations = {
-        blink_cmp = true,
-        bufferline = true,
-        gitsigns = true,
-        indent_blankline = { enabled = true },
-        mason = true,
-        mini = { enabled = true },
-        neotree = true,
-        noice = true,
-        notify = true,
-        snacks = true,
-        treesitter = true,
-        which_key = true,
-      },
-    },
+    config = function()
+      -- Style options: default, atlantis, andromeda, shusia, maia, espresso
+      vim.g.sonokai_style = "default"
+      vim.g.sonokai_better_performance = 1
+      vim.g.sonokai_enable_italic = 1
+    end,
   },
-  -- Tell LazyVim to use catppuccin
+  -- Tell LazyVim to use sonokai
   {
     "LazyVim/LazyVim",
     opts = {
-      colorscheme = "catppuccin",
+      colorscheme = "sonokai",
     },
   },
 }

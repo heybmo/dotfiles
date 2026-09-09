@@ -1,4 +1,4 @@
-theme = dark:Catppuccin Frappe,light:Catppuccin Frappe
+theme = Chester
 
 # Cursor
 cursor-style = block
@@ -13,6 +13,16 @@ window-padding-x = 8
 window-padding-y = 8
 window-padding-balance = true
 macos-titlebar-style = tabs
+
+# --- Tab title toggle ---
+# Uncomment the next line, then press cmd+shift+, to reload: all tab/window
+# titles go blank immediately. Re-comment + reload to bring titles back
+# (they reappear on the next prompt via shell integration).
+title = " "
+#
+# To hide the entire tab bar instead, change macos-titlebar-style above to
+# "hidden" (takes effect for NEW windows only after a reload; tabs still
+# work via cmd+1..5 and cmd+shift+[ / ]).
 
 
 # Scrollback

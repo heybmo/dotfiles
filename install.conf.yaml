@@ -5,15 +5,21 @@
 - link:
     ~/.config/kitty: kitty
     ~/.config/nvim: nvim
+    ~/.config/zed: zed
+    ~/.config/htop: htop
+    ~/.config/tmux: tmux
     ~/.zshrc: .zshrc
-    ~/.tools_list: tools_list
+    ~/.tools_list: tools_list.txt
     ~/notebook: notebook
     ~/.tmux.conf: .tmux.conf
     ~/.config/scripts: scripts
     ~/.config/starship.toml: starship.toml
     ~/.ideavimrc: .ideavimrc
     ~/.config/ghostty: ghostty
-    ~/.leetcode: .leetcode
+    ~/.config/opencode/:
+      glob: true
+      path: opencode/*
+      create: true
     ~/.claude/:
       glob: true
       path: .claude/*

@@ -1,0 +1,54 @@
+// Zed keymap
+//
+// For information on binding keys, see the Zed
+// documentation: https://zed.dev/docs/key-bindings
+//
+// To see the default key bindings run `zed: open default keymap`
+// from the command palette.
+[
+  {
+    "context": "Workspace",
+    "bindings": {
+      // "shift shift": "file_finder::Toggle"
+    },
+  },
+  {
+    "context": "Editor && vim_mode == insert",
+    "bindings": {
+      // "j k": "vim::NormalBefore"
+    },
+  },
+  {
+    "context": "Editor && vim_mode == normal && !VimWaiting && !menu",
+    "bindings": {
+      "space f t": "workspace::ToggleLeftDock",
+      "space f f": "file_finder::Toggle",
+      "space f g": "workspace::NewSearch",
+      "space f s": "outline::Toggle",
+      "space w h": "workspace::ActivatePaneLeft",
+      "space w j": "workspace::ActivatePaneDown",
+      "space w k": "workspace::ActivatePaneUp",
+      "space w l": "workspace::ActivatePaneRight",
+      "space w left": "workspace::ActivatePaneLeft",
+      "space w down": "workspace::ActivatePaneDown",
+      "space w up": "workspace::ActivatePaneUp",
+      "space w right": "workspace::ActivatePaneRight",
+      "space t t": "terminal_panel::ToggleFocus",
+      "space t s": ["task::Spawn", { "task_name": "Stopwatch" }]
+    },
+  },
+  {
+    "context": "Terminal || Dock",
+    "bindings": {
+      "ctrl-alt-h": "workspace::ActivatePaneLeft",
+      "ctrl-alt-j": "workspace::ActivatePaneDown",
+      "ctrl-alt-k": "workspace::ActivatePaneUp",
+      "ctrl-alt-l": "workspace::ActivatePaneRight"
+    },
+  },
+  {
+    "bindings": {
+      "cmd-z cmd-w": "workspace::Reload"
+    }
+  }
+]

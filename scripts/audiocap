@@ -1,0 +1,160 @@
+#!/usr/bin/env bash
+#
+# audiocap — toggle a detached ffmpeg audio capture (lossless stereo FLAC).
+#
+#   audiocap          toggle: start if idle, stop if running
+#   audiocap start    start a capture
+#   audiocap stop     stop the running capture and finalize the file
+#   audiocap status   show whether a capture is running
+#
+# The capture survives closing the terminal. Stopping sends SIGINT so ffmpeg
+# flushes the encoder and writes a valid Ogg header.
+
+set -euo pipefail
+
+DEVICE="${AUDIOCAP_DEVICE:-:BlackHole 2ch}"
+OUTDIR="${AUDIOCAP_OUTDIR:-$HOME/Recordings}"
+MAX_SECONDS="${AUDIOCAP_MAX_SECONDS:-14400}"   # 4h runaway guard
+
+# Select the first two channels explicitly. This is a direct stereo mapping for
+# the default BlackHole 2ch device and remains compatible with BlackHole 16ch
+# when selected through AUDIOCAP_DEVICE. BlackHole's multi-output clock is
+# already corrected by CoreAudio. Ignore AVFoundation's inconsistent capture
+# timestamps and derive a continuous timeline from the samples actually read;
+# timestamp compensation here inserts periodic silence. When BlackHole resumes
+# after withholding a block, repair the resulting hard waveform join so it
+# does not become an audible click.
+AUDIO_FILTER="pan=stereo|c0=c0|c1=c1,asetpts=N/SR/TB,adeclick=threshold=1.5"
+
+STATEDIR="${XDG_STATE_HOME:-$HOME/.local/state}/audiocap"
+PIDFILE="$STATEDIR/capture.pid"
+PATHFILE="$STATEDIR/capture.path"
+LOGFILE="$STATEDIR/capture.log"
+
+mkdir -p "$STATEDIR" "$OUTDIR"
+
+die() { printf 'audiocap: %s\n' "$1" >&2; exit 1; }
+
+# A pidfile is only trustworthy if that pid is still an ffmpeg. Guards against
+# the pid being recycled by an unrelated process after a crash.
+running_pid() {
+  [ -f "$PIDFILE" ] || return 1
+  local pid comm
+  pid="$(cat "$PIDFILE" 2>/dev/null)" || return 1
+  [[ "$pid" =~ ^[0-9]+$ ]] || return 1
+  comm="$(ps -p "$pid" -o comm= 2>/dev/null)" || return 1
+  [[ "$comm" == *ffmpeg* ]] || return 1
+  printf '%s' "$pid"
+}
+
+human_size() {
+  [ -f "$1" ] || { printf 'missing'; return; }
+  du -h "$1" | awk '{print $1}'
+}
+
+duration_of() {
+  ffprobe -v error -show_entries format=duration -of csv=p=0 "$1" 2>/dev/null \
+    | awk '{printf "%d:%02d:%05.2f", $1/3600, ($1%3600)/60, $1%60}'
+}
+
+cmd_status() {
+  local pid
+  if pid="$(running_pid)"; then
+    local out; out="$(cat "$PATHFILE" 2>/dev/null || echo '?')"
+    echo "recording  (pid $pid)"
+    echo "  file:    $out"
+    # Elapsed process time, not file size: the Ogg muxer buffers pages, so a
+    # healthy fresh capture can sit at 0 bytes on disk for a minute or more.
+    echo "  elapsed: $(ps -p "$pid" -o etime= 2>/dev/null | tr -d ' ')"
+    echo "  size:    $(human_size "$out") (lags; Ogg flushes in pages)"
+  else
+    echo "idle"
+    [ -f "$PATHFILE" ] && echo "  last: $(cat "$PATHFILE")"
+  fi
+}
+
+cmd_start() {
+  local pid
+  if pid="$(running_pid)"; then
+    die "already recording (pid $pid) -> $(cat "$PATHFILE" 2>/dev/null)"
+  fi
+
+  command -v ffmpeg >/dev/null || die "ffmpeg not found on PATH"
+
+  local out
+  out="$OUTDIR/capture-$(date +%Y%m%d-%H%M%S).flac"
+
+  # -nostdin  : backgrounded ffmpeg must not fight the shell for stdin
+  # nohup     : ignore SIGHUP so closing the terminal doesn't kill it
+  nohup ffmpeg -hide_banner -nostdin -nostats \
+      -thread_queue_size 4096 -f avfoundation -i "$DEVICE" \
+      -t "$MAX_SECONDS" \
+      -af "$AUDIO_FILTER" \
+      -c:a flac -compression_level 5 \
+      "$out" </dev/null >"$LOGFILE" 2>&1 &
+  local newpid=$!
+  disown "$newpid" 2>/dev/null || true
+
+  # Give ffmpeg a moment to open the device; a bad device name fails here.
+  sleep 1.5
+  if ! kill -0 "$newpid" 2>/dev/null; then
+    echo "audiocap: ffmpeg exited immediately. Log tail:" >&2
+    tail -n 15 "$LOGFILE" >&2
+    exit 1
+  fi
+
+  echo "$newpid" > "$PIDFILE"
+  echo "$out"    > "$PATHFILE"
+
+  echo "recording  (pid $newpid)"
+  echo "  device: $DEVICE"
+  echo "  file:   $out"
+  echo "  stop:   audiocap stop"
+}
+
+cmd_stop() {
+  local pid
+  pid="$(running_pid)" || die "no capture running"
+  local out; out="$(cat "$PATHFILE" 2>/dev/null || echo '')"
+
+  # SIGINT lets ffmpeg flush the Opus encoder and finalize the Ogg stream.
+  kill -INT "$pid" 2>/dev/null || true
+
+  local waited=0
+  while kill -0 "$pid" 2>/dev/null && [ "$waited" -lt 100 ]; do
+    sleep 0.1
+    waited=$((waited + 1))
+  done
+
+  if kill -0 "$pid" 2>/dev/null; then
+    echo "audiocap: ffmpeg ignored SIGINT after 10s, escalating to SIGTERM" >&2
+    kill -TERM "$pid" 2>/dev/null || true
+    sleep 2
+    kill -KILL "$pid" 2>/dev/null || true
+  fi
+
+  rm -f "$PIDFILE"
+
+  if [ -n "$out" ] && [ -f "$out" ]; then
+    echo "saved"
+    echo "  file:     $out"
+    echo "  size:     $(human_size "$out")"
+    echo "  duration: $(duration_of "$out")"
+    echo "  play:     afplay \"$out\""
+  else
+    echo "audiocap: stopped, but no output file found at ${out:-<unknown>}" >&2
+    tail -n 15 "$LOGFILE" >&2
+    exit 1
+  fi
+}
+
+case "${1:-toggle}" in
+  start)  cmd_start ;;
+  stop)   cmd_stop ;;
+  status) cmd_status ;;
+  toggle) if running_pid >/dev/null; then cmd_stop; else cmd_start; fi ;;
+  -h|--help|help)
+    sed -n '3,12p' "$0" | sed 's/^# \{0,1\}//'
+    ;;
+  *) die "unknown command '$1' (start|stop|status|toggle)" ;;
+esac

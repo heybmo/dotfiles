@@ -1,0 +1,12 @@
+{
+  // /Users/brian/dotfiles/opencode/opencode.base.json
+  "$schema": "opencode.schema.base.json",
+  "default_agent": "plan",
+  "subagent_depth": 1,
+  "compaction": {
+    "auto": true,
+    "prune": false,
+    "reserved": 100000,
+  },
+  "enabled_providers": ["anthropic", "openai"],
+}

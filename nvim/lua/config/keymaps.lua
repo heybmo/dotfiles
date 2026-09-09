@@ -22,8 +22,16 @@ map("n", "<leader>wh", "<C-w>h", { desc = "Go to left window" })
 map("n", "<leader>w|", "<cmd>vsplit<cr>", { desc = "Split window vertically" })
 map("n", "<leader>w-", "<cmd>split<cr>", { desc = "Split window horizontally" })
 
+-- Open terminal window
+map("n", "<leader>wt", ":tabnew | terminal", { desc = "Open terminal in new tab" })
+
 -- Move between windows with arrow keys as a fallback
 map("n", "<leader>wH", "<C-w>H", { desc = "Move window left" })
 map("n", "<leader>wL", "<C-w>L", { desc = "Move window right" })
 map("n", "<leader>wJ", "<C-w>J", { desc = "Move window down" })
 map("n", "<leader>wK", "<C-w>K", { desc = "Move window up" })
+
+-- Toggle filetree
+map("n", "<leader>ft", function()
+	Snacks.explorer()
+end, { desc = "Toggle filetree" })

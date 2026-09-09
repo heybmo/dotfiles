@@ -98,7 +98,7 @@ alias v="nvim";
 alias vim="nvim";
 
 # Aliases
-alias l="eza -lah --icons";
+alias l="eza -lah --icons --show-symlinks";
 alias lt="eza -T --long --icons";
 alias lg="eza --long --git --icons";
 alias c="bat";
@@ -142,12 +142,15 @@ export GOBIN="$GOPATH/bin";
 alias gcc="/opt/homebrew/bin/gcc-12";
 
 
-# MAKE brew-installed executables actually executable
+# Make brew-installed executables actually executable
 export PATH="$PATH:/opt/homebrew/bin";
 
 
 # Created by `pipx` on 2024-04-20 21:22:57
 export PATH="$PATH:${HOME}/.local/bin";
+
+# Personal scripts (audiocap, timer, ghostty_tabtitle, ...)
+export PATH="$PATH:${HOME}/dotfiles/scripts";
 
 
 # Source all secrets located in home dir
@@ -170,7 +173,7 @@ eval "$(starship init zsh)";
 # Add ability to run claude sandbox
 # source /Users/brian/projects/claude-sandbox/sandbox.sh;
 
-. "$HOME/.local/bin/env"
+# . "$HOME/.local/bin/env"
 
 # Add support for Perl (for MacTeX)
 PATH="/Users/brian/perl5/bin${PATH:+:${PATH}}"; export PATH;
@@ -179,3 +182,31 @@ PERL_LOCAL_LIB_ROOT="/Users/brian/perl5${PERL_LOCAL_LIB_ROOT:+:${PERL_LOCAL_LIB_
 PERL_MB_OPT="--install_base \"/Users/brian/perl5\""; export PERL_MB_OPT;
 PERL_MM_OPT="INSTALL_BASE=/Users/brian/perl5"; export PERL_MM_OPT;
 source ~/perl5/perlbrew/etc/bashrc
+
+# The next line updates PATH for the Google Cloud SDK.
+if [ -f '/Users/brian/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/brian/google-cloud-sdk/path.zsh.inc'; fi
+
+# The next line enables shell command completion for gcloud.
+if [ -f '/Users/brian/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/brian/google-cloud-sdk/completion.zsh.inc'; fi
+
+export PATH=/opt/homebrew/share/google-cloud-sdk/bin:"$PATH";
+
+# Zed Editor
+alias z="zed";
+
+
+# OpenCode conf
+export OPENCODE_CONFIG="$HOME/.config/opencode/opencode.jsonc"
+
+# LLVM TOOLCHAIN
+# If you need to have llvm first in your PATH, run:
+PATH="/opt/homebrew/opt/llvm/bin:$PATH";
+
+# For compilers to find llvm you may need to set:
+export LDFLAGS="-L/opt/homebrew/opt/llvm/lib";
+export CPPFLAGS="-I/opt/homebrew/opt/llvm/include";
+
+# For cmake to find llvm you may need to set:
+export CMAKE_PREFIX_PATH="/opt/homebrew/opt/llvm";
+
+
